@@ -11,7 +11,7 @@ namespace Vidly
     {
         public static void Register(HttpConfiguration config)
         {
-            //camelNotation
+
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting =Formatting.Indented;
