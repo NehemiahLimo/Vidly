@@ -37,7 +37,7 @@ else
                     <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
                     <td>@customer.MembershipType.Name</td>
                     <td>
-                        <button data-customers-id="@customer.Id" class="btn btn-link js-delete">Delete</button>
+                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
                     </td>
                 </tr>
             }
@@ -49,16 +49,21 @@ else
     {
     <script>
         $(document).ready(function () {
-            $("#customers .js-delete").on("click", function () {
-                if (confirm("Are you sure you want to delete this customer?")) {
-                    $.ajax({
-                        url: "/api/customers/" + $(this).attr("customers-data-id"),
-                        method: "DELETE",
-                        success: function () {
-                            console.log("sucess");
-                        }
-                    });
-                }
+            $("#customers").on("click",".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/customers/" + button.attr("data-customer-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+                
             });
         });
         
