@@ -25,29 +25,13 @@ namespace Vidly.Controllers
         }
 
         // GET: Movies
-        public ActionResult Random()
-        {
-            var movie = new Movie() { Name = "Shrek" };
-
-            var customers = new List<Customer>
-            {
-                new Customer {Name= "Customer 1"},
-                new Customer {Name= "Customer 2"}
-            };
-            var viewModel = new RandomMovieViewModel
-            {
-                Movie = movie,
-                Customers = customers
-            };
-            
-            return  View(viewModel);
-            
-        }
+        
 
         public ViewResult Index()
         {
-
-            return View();
+            if(User.IsInRole(RoleName.CanMnageMovies))
+                return View("List");
+            return View("ReadOnly");
         }
 
         public ActionResult Details( int id )
@@ -72,6 +56,7 @@ namespace Vidly.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanMnageMovies )]
         public ActionResult New()
         {
             var genres = _context.Genre.ToList();
