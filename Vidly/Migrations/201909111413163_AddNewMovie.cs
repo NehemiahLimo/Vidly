@@ -8,7 +8,8 @@ namespace Vidly.Migrations
         public override void Up()
         {
             //Sql.AddColumn();
-            Sql("INSERT INTO Movies (Id, Name, GenreId, ReleaseDate, NumberInStock) VALUES (1, 'Pyaar Impossible',1,09/11/2019,5)");
+            Sql("SET IDENTITY_INSERT Movies ON");
+            //Sql("INSERT INTO Movies (Id, Name, GenreId, ReleaseDate, NumberInStock) VALUES (1, 'Pyaar Impossible',1,09/11/2019,5)");
 
         }
         
