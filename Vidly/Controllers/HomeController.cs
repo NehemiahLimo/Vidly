@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace Vidly.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
-        [AllowAnonymous]
+        [OutputCache(Duration =0, VaryByParam ="*", NoStore =true)]
         public ActionResult Index()
         {
             return View();
